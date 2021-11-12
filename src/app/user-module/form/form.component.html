@@ -1,0 +1,23 @@
+<div class="example-container">
+  <div class="form-container">
+    <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm.value)">
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label> Name
+        </mat-label>
+        <input matInput formControlName="name" required>
+        <mat-error *ngIf="createForm.controls.name.touched && createForm.controls.name.invalid">
+          <span *ngIf="createForm.controls.name.errors.required" style="color: #c2185b;">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline" required>
+        <mat-label> Job
+        </mat-label>
+        <input matInput formControlName="job">
+        <mat-error *ngIf="createForm.controls.job.touched && createForm.controls.job.invalid">
+          <span *ngIf="createForm.controls.job.errors.required" style="color: #c2185b;">This field is mandatory.</span>
+        </mat-error>
+      </mat-form-field>
+      <button mat-raised-button [disabled]="createForm.invalid" color="primary" type="submit">Create user</button>
+    </form>
+  </div>
+</div>

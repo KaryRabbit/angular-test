@@ -1,0 +1,39 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="avatar">
+        <th mat-header-cell *matHeaderCellDef>Avatar </th>
+        <td mat-cell *matCellDef="let user"> <img class="avatar" src={{user.avatar}} /> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="first_name">
+        <th mat-header-cell *matHeaderCellDef>First Name </th>
+        <td mat-cell *matCellDef="let user"> {{user.first_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="last_name">
+        <th mat-header-cell *matHeaderCellDef> Last Name </th>
+        <td mat-cell *matCellDef="let user"> {{user.last_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="openInNew">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let user">
+            <mat-icon (click)="openModal(user.id)">open_in_new</mat-icon>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<mat-paginator [pageSizeOptions]="pageSizes"></mat-paginator>

@@ -1,0 +1,26 @@
+::ng-deep .mat-dialog-container {
+  border-radius: 11px;
+}
+
+.userData {
+  display: flex;
+  margin-left: 20px;
+}
+
+#modal-title {
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+.text {
+  font-size: 15px;
+  line-height: 30px;
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+#modal-cancel-button {
+  float: right;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}

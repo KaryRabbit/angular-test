@@ -1,0 +1,16 @@
+<div id="modal-content-wrapper">
+    <section id="modal-body">
+        <div class="postData">
+            <div class="text">
+                <div><b>ID: </b>{{data.post.id}}</div>
+                <div><b>User: </b>{{data.post.userId}}</div>
+                <div><b>Title:</b> {{data.post.title}}</div>
+                <div><b>Body:</b> {{data.post.body}}</div>
+            </div>
+        </div>
+
+    </section>
+    <footer id="modal-footer">
+        <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Go back</button>
+    </footer>
+</div>

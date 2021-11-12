@@ -1,0 +1,32 @@
+<div class="example-container">
+    <div class="form-container">
+      <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm.value)">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label> UserId
+          </mat-label>
+          <input matInput formControlName="userId" required>
+          <mat-error *ngIf="createForm.controls.userId.touched && createForm.controls.userId.invalid">
+            <span *ngIf="createForm.controls.userId.errors.required" style="color: #c2185b;">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline" required>
+          <mat-label> Title
+          </mat-label>
+          <input matInput formControlName="title">
+          <mat-error *ngIf="createForm.controls.title.touched && createForm.controls.title.invalid">
+            <span *ngIf="createForm.controls.title.errors.required" style="color: #c2185b;">This field is mandatory.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline" required>
+            <mat-label> Body
+            </mat-label>
+            <input matInput formControlName="body">
+            <mat-error *ngIf="createForm.controls.body.touched && createForm.controls.body.invalid">
+              <span *ngIf="createForm.controls.body.errors.required" style="color: #c2185b;">This field is mandatory.</span>
+            </mat-error>
+          </mat-form-field>
+        <button mat-raised-button [disabled]="createForm.invalid" color="primary" type="submit">Create post</button>
+      </form>
+    </div>
+  </div>
+  

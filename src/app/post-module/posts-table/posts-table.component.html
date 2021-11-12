@@ -1,0 +1,27 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let post">{{post.id}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="userId">
+        <th mat-header-cell *matHeaderCellDef> User ID </th>
+        <td mat-cell *matCellDef="let post"> {{post.userId}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let post"> {{post.title}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="body">
+        <th mat-header-cell *matHeaderCellDef> Body </th>
+        <td mat-cell *matCellDef="let post"> {{post.body}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
+
+<mat-paginator [pageSizeOptions]="pageSizes"></mat-paginator>

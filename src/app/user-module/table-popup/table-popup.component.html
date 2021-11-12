@@ -1,0 +1,22 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        <h3 id="modal-title">ID: {{data.user.id}}</h3>
+    </header>
+
+    <section id="modal-body">
+
+        <div class="userData">
+            <div> <img src="{{data.user.avatar}}" /> </div>
+
+            <div class="text">
+                <div><b>First name: </b>{{data.user.first_name}}</div>
+                <div><b>Last name:</b> {{data.user.last_name}}</div>
+                <div><b>Email</b>: {{data.user.email}}</div>
+            </div>
+        </div>
+
+    </section>
+    <footer id="modal-footer">
+        <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Go back</button>
+    </footer>
+</div>
