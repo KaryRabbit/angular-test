@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { JsonplaceholderApiService } from './jsonplaceholder-api.service';
 import { PostsTableComponent } from './posts-table/posts-table.component';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
 import { CommonModule } from '@angular/common';
 import { PostModuleRoutingModule } from './post-module-routing.module';
 import { CreatePostFormComponent } from './create-post-form/create-post-form.component';
