@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreateUserPopupComponent } from '../create-user-popup/create-user-popup.component';
 import { ReqresApiService } from '../reqres-api.service';
@@ -14,7 +14,7 @@ export class FormComponent implements OnInit {
   CreatedData;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     public matDialog: MatDialog,
     private reqresApiService: ReqresApiService
   ) {}

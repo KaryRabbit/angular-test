@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CreatePostPopupComponent } from '../create-post-popup/create-post-popup.component';
 import { JsonplaceholderApiService } from '../jsonplaceholder-api.service';
@@ -14,7 +14,7 @@ export class CreatePostFormComponent implements OnInit {
   CreatedData;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     public matDialog: MatDialog,
     private jsonplaceholderApiService: JsonplaceholderApiService
   ) {}
