@@ -1,27 +1,56 @@
-# AngularTestProject
+# Angular Dashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.1.
+Angular 21 project with a responsive dashboard shell, typed API services, and polished data workflows.
 
-## Development server
+## Tech Stack
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Angular 21
+- Angular Material 21
+- TypeScript 5.9
+- RxJS 7
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Responsive dashboard layout with side navigation
+- Users module
+- Search + pagination table
+- User details modal
+- Create user reactive form
+- Posts module
+- Search + pagination table
+- Create post reactive form
+- Loading, error, and empty states for data views
+- VS Code debug configuration (`.vscode/launch.json`, `.vscode/tasks.json`)
+
+## Run Locally
+
+```bash
+npm install
+npm start
+```
+
+App runs at `http://localhost:4200`.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+npm run build
+```
 
-## Running unit tests
+## Test
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm test
+```
 
-## Running end-to-end tests
+## Project Structure
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- `src/app/app.component.*`: app shell and navigation
+- `src/app/home-page/*`: landing/overview section
+- `src/app/user-module/*`: users table, forms, dialogs, API service
+- `src/app/post-module/*`: posts table, forms, dialogs, API service
 
-## Further help
+## APIs Used
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- `https://jsonplaceholder.typicode.com`
+- `https://reqres.in`
