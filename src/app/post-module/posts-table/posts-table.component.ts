@@ -1,40 +1,77 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog } from '@angular/material/dialog';
-import { JsonplaceholderApiService } from '../jsonplaceholder-api.service';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { catchError, of } from 'rxjs';
+import { JsonplaceholderApiService, Post } from '../jsonplaceholder-api.service';
 
 @Component({
-  selector: 'app-table',
+  selector: 'app-posts-table',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './posts-table.component.html',
   styleUrls: ['./posts-table.component.scss'],
 })
-export class PostsTableComponent {
-  dataSource = new MatTableDataSource();
-  currentPage = 0;
-  user: any;
-  pageSizes: number[] = [10, 20, 100];
+export class PostsTableComponent implements OnInit {
+  private readonly jsonplaceholderService = inject(JsonplaceholderApiService);
 
-  @ViewChild(MatPaginator)
-  paginator;
+  readonly dataSource = new MatTableDataSource<Post>([]);
+  readonly displayedColumns: string[] = ['id', 'userId', 'title', 'body'];
+  readonly pageSizes: number[] = [10, 20, 50];
+  readonly defaultPageSize = 10;
 
-  constructor(
-    private jsonplaceholderService: JsonplaceholderApiService,
-    public matDialog: MatDialog
-  ) {}
-  displayedColumns: string[] = ['id', 'userId', 'title', 'body'];
+  loading = false;
+  error = '';
 
-  ngOnInit() {
-    this.openTable();
+  @ViewChild(MatPaginator) set paginator(paginator: MatPaginator | undefined) {
+    if (!paginator) {
+      return;
+    }
+    this.dataSource.paginator = paginator;
+    paginator.pageSize = this.defaultPageSize;
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  ngOnInit(): void {
+    this.loadPosts();
   }
 
-  openTable() {
-    this.jsonplaceholderService.getPosts().subscribe((result) => {
-      this.dataSource.data = result;
-    });
+  applyFilter(value: string): void {
+    this.dataSource.filter = value.trim().toLowerCase();
+    this.dataSource.paginator?.firstPage();
+  }
+
+  retry(): void {
+    this.loadPosts();
+  }
+
+  private loadPosts(): void {
+    this.loading = true;
+    this.error = '';
+
+    this.jsonplaceholderService
+      .getPosts()
+      .pipe(
+        catchError(() => {
+          this.error = 'Unable to load posts right now. Please retry.';
+          return of([] as Post[]);
+        })
+      )
+      .subscribe((result) => {
+        this.dataSource.data = result;
+        this.dataSource.paginator?.firstPage();
+        this.loading = false;
+      });
   }
 }

@@ -1,56 +1,68 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { CreatePostPopupComponent } from '../create-post-popup/create-post-popup.component';
 import { JsonplaceholderApiService } from '../jsonplaceholder-api.service';
+import { ToastService } from '../../core/services/toast.service';
 
 @Component({
   selector: 'app-create-post-form',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+  ],
   templateUrl: './create-post-form.component.html',
   styleUrls: ['./create-post-form.component.scss'],
 })
 export class CreatePostFormComponent implements OnInit {
-  createForm;
-  CreatedData;
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly dialog = inject(MatDialog);
+  private readonly jsonplaceholderApiService = inject(JsonplaceholderApiService);
+  private readonly toast = inject(ToastService);
 
-  constructor(
-    private formBuilder: FormBuilder,
-    public matDialog: MatDialog,
-    private jsonplaceholderApiService: JsonplaceholderApiService
-  ) {}
+  createForm!: FormGroup;
+  submitting = false;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createForm = this.formBuilder.group({
-      userId: [null, Validators.required],
-      title: [null, Validators.required],
-      body: [null, Validators.required],
+      userId: [null, [Validators.required, Validators.min(1)]],
+      title: ['', [Validators.required, Validators.minLength(5)]],
+      body: ['', [Validators.required, Validators.minLength(10)]],
     });
   }
 
-  submit() {
-    if (!this.createForm.valid) {
+  onSubmit(): void {
+    if (this.createForm.invalid || this.submitting) {
+      this.createForm.markAllAsTouched();
+      this.toast.warning('Please fill all required fields correctly');
       return;
     }
-  }
 
-  onSubmit(data) {
-    this.openModal(data);
-  }
+    this.submitting = true;
 
-  openModal(data) {
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = false;
-    dialogConfig.id = 'modal-component';
-    dialogConfig.height = '250px';
-    dialogConfig.width = '420px';
-
-    const postObser = this.jsonplaceholderApiService.createPost(data);
-    postObser.subscribe((response) => {
-      dialogConfig.data = {
-        post: response,
-      };
-      this.matDialog.open(CreatePostPopupComponent, dialogConfig);
+    this.jsonplaceholderApiService.createPost(this.createForm.value).subscribe({
+      next: (response) => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = '460px';
+        dialogConfig.data = { post: response };
+        this.dialog.open(CreatePostPopupComponent, dialogConfig);
+        this.toast.success('Post created successfully!');
+        this.createForm.reset();
+        this.submitting = false;
+      },
+      error: () => {
+        this.toast.error('Failed to create post. Please try again.');
+        this.submitting = false;
+      },
     });
   }
 }

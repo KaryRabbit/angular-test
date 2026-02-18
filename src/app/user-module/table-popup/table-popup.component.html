@@ -1,22 +1,43 @@
 <div id="modal-content-wrapper">
-    <header id="modal-header">
-        <h3 id="modal-title">ID: {{data.user.id}}</h3>
-    </header>
+  <header id="modal-header">
+    <h3 id="modal-title">{{ data.user.name }}</h3>
+    <p class="user-username">@{{ data.user.username }}</p>
+  </header>
 
-    <section id="modal-body">
-
-        <div class="userData">
-            <div> <img src="{{data.user.avatar}}" /> </div>
-
-            <div class="text">
-                <div><b>First name: </b>{{data.user.first_name}}</div>
-                <div><b>Last name:</b> {{data.user.last_name}}</div>
-                <div><b>Email</b>: {{data.user.email}}</div>
-            </div>
+  <section id="modal-body">
+    <div class="userData">
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Email:</span>
+          <span class="value">{{ data.user.email }}</span>
         </div>
+        <div class="info-item">
+          <span class="label">Phone:</span>
+          <span class="value">{{ data.user.phone }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Website:</span>
+          <span class="value">{{ data.user.website }}</span>
+        </div>
+        <div class="info-item">
+          <span class="label">Address:</span>
+          <span class="value">
+            {{ data.user.address.street }}, {{ data.user.address.suite }}<br />
+            {{ data.user.address.city }}, {{ data.user.address.zipcode }}
+          </span>
+        </div>
+        <div class="info-item">
+          <span class="label">Company:</span>
+          <span class="value">
+            {{ data.user.company.name }}<br />
+            <em>{{ data.user.company.catchPhrase }}</em>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </section>
-    <footer id="modal-footer">
-        <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Go back</button>
-    </footer>
+  <footer id="modal-footer">
+    <button mat-flat-button color="primary" (click)="closeModal()">Close</button>
+  </footer>
 </div>

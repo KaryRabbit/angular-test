@@ -1,4 +1,491 @@
-/* You can add global styles to this file, and also import other style files */
+// ============================================
+// MATERIAL 3 DESIGN TOKENS
+// ============================================
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  // Light theme colors (Material 3 inspired)
+  --md-sys-color-primary: #0061a4;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #d1e4ff;
+  --md-sys-color-on-primary-container: #001d36;
+
+  --md-sys-color-secondary: #535f70;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #d7e3f7;
+  --md-sys-color-on-secondary-container: #101c2b;
+
+  --md-sys-color-tertiary: #6b5778;
+  --md-sys-color-on-tertiary: #ffffff;
+  --md-sys-color-tertiary-container: #f2daff;
+  --md-sys-color-on-tertiary-container: #251431;
+
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #ffdad6;
+  --md-sys-color-on-error-container: #410002;
+
+  --md-sys-color-background: #fdfcff;
+  --md-sys-color-on-background: #1a1c1e;
+  --md-sys-color-surface: #fdfcff;
+  --md-sys-color-on-surface: #1a1c1e;
+  --md-sys-color-surface-variant: #e1e2ec;
+  --md-sys-color-on-surface-variant: #44474f;
+
+  --md-sys-color-outline: #74777f;
+  --md-sys-color-outline-variant: #c4c6d0;
+
+  --md-sys-color-shadow: #000000;
+  --md-sys-color-scrim: #000000;
+
+  --md-sys-color-inverse-surface: #2f3033;
+  --md-sys-color-inverse-on-surface: #f1f0f4;
+  --md-sys-color-inverse-primary: #a0cafd;
+
+  // Surface tints
+  --md-sys-color-surface-tint: var(--md-sys-color-primary);
+  --md-sys-color-surface-container-lowest: #ffffff;
+  --md-sys-color-surface-container-low: #f7f7fa;
+  --md-sys-color-surface-container: #f1f1f4;
+  --md-sys-color-surface-container-high: #ebebee;
+  --md-sys-color-surface-container-highest: #e5e5e9;
+
+  // Elevation & shadows
+  --md-sys-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  --md-sys-elevation-2: 0 2px 4px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.1);
+  --md-sys-elevation-3: 0 4px 8px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.1);
+  --md-sys-elevation-4: 0 8px 16px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.12);
+
+  // Typography
+  --md-sys-typescale-display-large: 57px;
+  --md-sys-typescale-display-medium: 45px;
+  --md-sys-typescale-display-small: 36px;
+  --md-sys-typescale-headline-large: 32px;
+  --md-sys-typescale-headline-medium: 28px;
+  --md-sys-typescale-headline-small: 24px;
+  --md-sys-typescale-title-large: 22px;
+  --md-sys-typescale-title-medium: 16px;
+  --md-sys-typescale-title-small: 14px;
+  --md-sys-typescale-body-large: 16px;
+  --md-sys-typescale-body-medium: 14px;
+  --md-sys-typescale-body-small: 12px;
+  --md-sys-typescale-label-large: 14px;
+  --md-sys-typescale-label-medium: 12px;
+  --md-sys-typescale-label-small: 11px;
+
+  // Spacing scale
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
+  // Border radius
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  // Transitions
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Dark theme - Professional high-contrast
+[data-theme='dark'] {
+  --md-sys-color-primary: #82b1ff;
+  --md-sys-color-on-primary: #00202e;
+  --md-sys-color-primary-container: #1e88e5;
+  --md-sys-color-on-primary-container: #ffffff;
+
+  --md-sys-color-secondary: #90caf9;
+  --md-sys-color-on-secondary: #001f2a;
+  --md-sys-color-secondary-container: #1976d2;
+  --md-sys-color-on-secondary-container: #ffffff;
+
+  --md-sys-color-tertiary: #ce93d8;
+  --md-sys-color-on-tertiary: #2a1239;
+  --md-sys-color-tertiary-container: #9c27b0;
+  --md-sys-color-on-tertiary-container: #ffffff;
+
+  --md-sys-color-error: #ff5252;
+  --md-sys-color-on-error: #ffffff;
+  --md-sys-color-error-container: #d32f2f;
+  --md-sys-color-on-error-container: #ffffff;
+
+  --md-sys-color-background: #0a0a0a;
+  --md-sys-color-on-background: #f5f5f5;
+  --md-sys-color-surface: #1a1a1a;
+  --md-sys-color-on-surface: #f5f5f5;
+  --md-sys-color-surface-variant: #424242;
+  --md-sys-color-on-surface-variant: #e0e0e0;
+
+  --md-sys-color-outline: #757575;
+  --md-sys-color-outline-variant: #424242;
+
+  --md-sys-color-inverse-surface: #f5f5f5;
+  --md-sys-color-inverse-on-surface: #1a1a1a;
+  --md-sys-color-inverse-primary: #1e88e5;
+
+  --md-sys-color-surface-container-lowest: #000000;
+  --md-sys-color-surface-container-low: #121212;
+  --md-sys-color-surface-container: #1e1e1e;
+  --md-sys-color-surface-container-high: #282828;
+  --md-sys-color-surface-container-highest: #323232;
+
+  --md-sys-elevation-1: 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.6);
+  --md-sys-elevation-2: 0 4px 8px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.6);
+  --md-sys-elevation-3: 0 8px 16px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.6);
+  --md-sys-elevation-4: 0 12px 24px rgba(0, 0, 0, 0.5), 0 6px 12px rgba(0, 0, 0, 0.6);
+}
+
+// ============================================
+// GLOBAL STYLES
+// ============================================
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: var(--md-sys-typescale-body-medium);
+  line-height: 1.6;
+  transition: background-color var(--transition-base), color var(--transition-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ============================================
+// UTILITY CLASSES
+// ============================================
+
+.surface-1 {
+  background: var(--md-sys-color-surface-container-low);
+  box-shadow: var(--md-sys-elevation-1);
+}
+
+.surface-2 {
+  background: var(--md-sys-color-surface-container);
+  box-shadow: var(--md-sys-elevation-2);
+}
+
+.surface-3 {
+  background: var(--md-sys-color-surface-container-high);
+  box-shadow: var(--md-sys-elevation-3);
+}
+
+// Skeleton loader animation
+@keyframes skeleton-loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--md-sys-color-surface-variant) 0%,
+    var(--md-sys-color-surface-container-high) 50%,
+    var(--md-sys-color-surface-variant) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+}
+
+// Smooth transitions for theme switching
+* {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: var(--transition-base);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// ============================================
+// MATERIAL FORM FIELD OVERRIDES
+// ============================================
+
+// Light theme (default)
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    background-color: #ffffff !important;
+  }
+
+  .mat-mdc-floating-label,
+  .mdc-floating-label,
+  mat-label {
+    color: #666666 !important;
+  }
+
+  .mat-mdc-input-element,
+  input.mat-mdc-input-element {
+    color: #1a1a1a !important;
+    caret-color: #0061a4 !important;
+
+    &::placeholder {
+      color: #757575 !important;
+      opacity: 1 !important;
+    }
+  }
+
+  .mdc-notched-outline__leading,
+  .mdc-notched-outline__notch,
+  .mdc-notched-outline__trailing {
+    border-color: #757575 !important;
+  }
+
+  &.mat-focused {
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: #0061a4 !important;
+      border-width: 2px !important;
+    }
+
+    .mat-mdc-floating-label {
+      color: #0061a4 !important;
+    }
+  }
+}
+
+// Dark theme overrides
+[data-theme='dark'] {
+  .mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      background-color: #2a2a2a !important;
+    }
+
+    .mat-mdc-floating-label,
+    .mdc-floating-label,
+    mat-label {
+      color: #e0e0e0 !important;
+    }
+
+    .mat-mdc-input-element,
+    input.mat-mdc-input-element {
+      color: #f5f5f5 !important;
+      caret-color: #82b1ff !important;
+
+      &::placeholder {
+        color: #b0b0b0 !important;
+        opacity: 1 !important;
+      }
+
+      &::-webkit-input-placeholder {
+        color: #b0b0b0 !important;
+        opacity: 1 !important;
+      }
+
+      &::-moz-placeholder {
+        color: #b0b0b0 !important;
+        opacity: 1 !important;
+      }
+    }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: #757575 !important;
+    }
+
+    &.mat-focused {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: #82b1ff !important;
+        border-width: 2px !important;
+      }
+
+      .mat-mdc-floating-label {
+        color: #82b1ff !important;
+      }
+    }
+
+    &.mat-form-field-invalid {
+      .mdc-notched-outline__leading,
+      .mdc-notched-outline__notch,
+      .mdc-notched-outline__trailing {
+        border-color: #ff5252 !important;
+      }
+
+      .mat-mdc-floating-label {
+        color: #ff5252 !important;
+      }
+    }
+  }
+
+  // Button overrides for dark mode
+  .mat-mdc-raised-button.mat-primary,
+  .mat-mdc-flat-button.mat-primary {
+    background-color: #1e88e5 !important;
+    color: #ffffff !important;
+
+    .mdc-button__label {
+      color: #ffffff !important;
+    }
+  }
+}
+
+// Buttons
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-flat-button,
+.mat-mdc-stroked-button {
+  .mdc-button__label {
+    color: inherit !important;
+  }
+}
+
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-flat-button.mat-primary {
+  background-color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+
+  &:disabled {
+    opacity: 0.38;
+  }
+}
+
+// ============================================
+// MATERIAL PAGINATOR OVERRIDES
+// ============================================
+
+.mat-mdc-paginator {
+  background: transparent !important;
+  color: var(--md-sys-color-on-surface) !important;
+
+  .mat-mdc-paginator-range-label,
+  .mat-mdc-paginator-page-size-label {
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  .mat-mdc-icon-button {
+    color: var(--md-sys-color-on-surface) !important;
+  }
+
+  .mat-mdc-select-value {
+    color: var(--md-sys-color-on-surface) !important;
+  }
+}
+
+[data-theme='dark'] {
+  .mat-mdc-paginator {
+    .mat-mdc-paginator-range-label,
+    .mat-mdc-paginator-page-size-label,
+    .mat-mdc-select-value {
+      color: #f5f5f5 !important;
+    }
+
+    .mat-mdc-icon-button {
+      color: #f5f5f5 !important;
+    }
+  }
+}
+
+// ============================================
+// MATERIAL TABLE OVERRIDES
+// ============================================
+
+.mat-mdc-table {
+  background: transparent !important;
+
+  .mat-mdc-header-row {
+    background: var(--md-sys-color-surface-container) !important;
+  }
+
+  .mat-mdc-row {
+    background: transparent !important;
+
+    &:hover {
+      background: var(--md-sys-color-surface-container-high) !important;
+    }
+  }
+
+  .mat-mdc-cell,
+  .mat-mdc-header-cell {
+    color: var(--md-sys-color-on-surface) !important;
+    border-bottom-color: var(--md-sys-color-outline-variant) !important;
+  }
+
+  .mat-mdc-header-cell {
+    font-weight: 600 !important;
+  }
+}
+
+// ============================================
+// DIALOG / MODAL STYLES
+// ============================================
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: var(--md-sys-color-surface-container) !important;
+  --mdc-dialog-subhead-color: var(--md-sys-color-on-surface) !important;
+  --mdc-dialog-supporting-text-color: var(--md-sys-color-on-surface-variant) !important;
+
+  .mat-mdc-dialog-surface {
+    background-color: var(--md-sys-color-surface-container) !important;
+    color: var(--md-sys-color-on-surface) !important;
+  }
+}
+
+// ============================================
+// TOAST / SNACKBAR STYLES
+// ============================================
+
+.toast-success {
+  .mdc-snackbar__surface {
+    background: var(--md-sys-color-primary) !important;
+    color: var(--md-sys-color-on-primary) !important;
+  }
+
+  .mat-mdc-button {
+    color: var(--md-sys-color-on-primary) !important;
+  }
+}
+
+.toast-error {
+  .mdc-snackbar__surface {
+    background: var(--md-sys-color-error) !important;
+    color: var(--md-sys-color-on-error) !important;
+  }
+
+  .mat-mdc-button {
+    color: var(--md-sys-color-on-error) !important;
+  }
+}
+
+.toast-info {
+  .mdc-snackbar__surface {
+    background: var(--md-sys-color-secondary) !important;
+    color: var(--md-sys-color-on-secondary) !important;
+  }
+
+  .mat-mdc-button {
+    color: var(--md-sys-color-on-secondary) !important;
+  }
+}
+
+.toast-warning {
+  .mdc-snackbar__surface {
+    background: var(--md-sys-color-tertiary) !important;
+    color: var(--md-sys-color-on-tertiary) !important;
+  }
+
+  .mat-mdc-button {
+    color: var(--md-sys-color-on-tertiary) !important;
+  }
+}

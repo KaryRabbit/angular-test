@@ -1,32 +1,29 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-export class Post {
-  constructor(
-    public userId: Number,
-    public id: Number,
-    public title: string,
-    public body: string
-  ) {}
+export interface Post {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
 }
+
+export type CreatePostPayload = Pick<Post, 'userId' | 'title' | 'body'>;
 
 @Injectable({
   providedIn: 'root',
 })
 export class JsonplaceholderApiService {
-  baseURL: string = 'https://jsonplaceholder.typicode.com/';
-  constructor(private http: HttpClient) {}
+  private readonly baseUrl = 'https://jsonplaceholder.typicode.com/';
 
-  response: any;
+  constructor(private readonly http: HttpClient) {}
 
   getPosts(): Observable<Post[]> {
-    return this.http
-      .get<Post[]>(`${this.baseURL}posts`);
+    return this.http.get<Post[]>(`${this.baseUrl}posts`);
   }
 
-  createPost(data): Observable<Post> {
-    return this.http.post<Post>(`${this.baseURL}posts`, data);
+  createPost(data: CreatePostPayload): Observable<Post> {
+    return this.http.post<Post>(`${this.baseUrl}posts`, data);
   }
 }

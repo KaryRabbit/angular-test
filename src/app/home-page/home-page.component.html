@@ -1,1 +1,52 @@
+<section class="hero">
+  <p class="tag">Portfolio Dashboard</p>
+  <h1>Angular Application</h1>
+  <p class="hero-description">Built with Angular 21, Material Design 3</p>
+</section>
 
+<section class="stats-grid">
+  <div class="stat-card">
+    <mat-icon class="stat-icon">people</mat-icon>
+    <div class="stat-content">
+      <div class="stat-value">
+        {{ stats().loading ? "—" : stats().totalUsers }}
+      </div>
+      <div class="stat-label">Total Users</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <mat-icon class="stat-icon">article</mat-icon>
+    <div class="stat-content">
+      <div class="stat-value">
+        {{ stats().loading ? "—" : stats().totalPosts }}
+      </div>
+      <div class="stat-label">Total Posts</div>
+    </div>
+  </div>
+
+  <div class="stat-card">
+    <mat-icon class="stat-icon">trending_up</mat-icon>
+    <div class="stat-content">
+      <div class="stat-value">
+        {{ stats().loading ? "—" : stats().avgPostsPerUser }}
+      </div>
+      <div class="stat-label">Posts per User</div>
+    </div>
+  </div>
+</section>
+
+<section class="features-section">
+  <h2 class="section-title">Features</h2>
+  <div class="feature-grid">
+    <article *ngFor="let card of cards" class="feature-card">
+      <mat-icon class="feature-icon">{{ card.icon }}</mat-icon>
+      <h3>{{ card.title }}</h3>
+      <p>{{ card.description }}</p>
+      <a mat-flat-button color="primary" [routerLink]="card.route">
+        {{ card.cta }}
+        <mat-icon iconPositionEnd>arrow_forward</mat-icon>
+      </a>
+    </article>
+  </div>
+</section>

@@ -1,22 +1,21 @@
-import { Inject } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { User } from '../reqres-api.service';
 
 @Component({
-  selector: 'app-popup',
+  selector: 'app-table-popup',
+  standalone: true,
+  imports: [CommonModule, MatDialogModule, MatButtonModule],
   templateUrl: './table-popup.component.html',
   styleUrls: ['./table-popup.component.scss'],
 })
-export class TablePopupComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<TablePopupComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+export class TablePopupComponent {
+  readonly dialogRef = inject(MatDialogRef<TablePopupComponent>);
+  readonly data: { user: User } = inject(MAT_DIALOG_DATA);
 
-  ngOnInit(): void {}
-
-  closeModal() {
+  closeModal(): void {
     this.dialogRef.close();
   }
 }

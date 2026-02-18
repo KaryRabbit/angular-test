@@ -1,21 +1,10 @@
-::ng-deep .mat-dialog-container {
-    border-radius: 11px;
-  }
-  
-  .postData {
-    display: flex;
-  }
-  
-  .text {
-    font-size: 15px;
-    margin-left: 20px;
-    margin-top: 20px;
-    line-height: 30px;
-  }
-  
-  button {
-    margin-top: 30px;
-    margin-right: 20px;
-    float: right;
-  }
-  
+.text {
+  font-size: 0.94rem;
+  line-height: 1.9;
+  color: #1f4763;
+}
+
+#modal-footer {
+  margin-top: 12px;
+  text-align: right;
+}

@@ -1,23 +1,36 @@
-<div class="example-container">
-  <div class="form-container">
-    <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm.value)">
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label> Name
-        </mat-label>
-        <input matInput formControlName="name" required>
-        <mat-error *ngIf="createForm.controls.name.touched && createForm.controls.name.invalid">
-          <span *ngIf="createForm.controls.name.errors.required" style="color: #c2185b;">This field is mandatory.</span>
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline" required>
-        <mat-label> Job
-        </mat-label>
-        <input matInput formControlName="job">
-        <mat-error *ngIf="createForm.controls.job.touched && createForm.controls.job.invalid">
-          <span *ngIf="createForm.controls.job.errors.required" style="color: #c2185b;">This field is mandatory.</span>
-        </mat-error>
-      </mat-form-field>
-      <button mat-raised-button [disabled]="createForm.invalid" color="primary" type="submit">Create user</button>
-    </form>
-  </div>
-</div>
+<section class="form-shell">
+  <header>
+    <h1>Create User</h1>
+    <p>Submit a new user profile using reactive validation rules.</p>
+  </header>
+
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()" class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="createForm.controls['name'].touched && createForm.controls['name'].invalid">
+        Name is required (min 2 chars).
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" />
+      <mat-error *ngIf="createForm.controls['username'].touched && createForm.controls['username'].invalid">
+        Username is required (min 2 chars).
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" />
+      <mat-error *ngIf="createForm.controls['email'].touched && createForm.controls['email'].invalid">
+        Valid email is required.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" [disabled]="createForm.invalid || submitting" type="submit">
+      {{ submitting ? 'Creating...' : 'Create user' }}
+    </button>
+  </form>
+</section>
