@@ -1,50 +1,53 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, map } from 'rxjs';
 
-export class User {
-  constructor(
-    public id: Number,
-    public avatar: string,
-    public email: string,
-    public last_name: string,
-    public first_name: string
-  ) {}
+export interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  website: string;
+  address: {
+    street: string;
+    suite: string;
+    city: string;
+    zipcode: string;
+  };
+  company: {
+    name: string;
+    catchPhrase: string;
+  };
 }
 
-export class CreatedUser {
-  constructor(
-    public id: Number,
-    public job: string,
-    public name: string,
-    public createdAt: string
-  ) {}
-}
-
-export class Data {
-  constructor(public data: User[]) {}
+export interface CreatedUser {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class ReqresApiService {
-  baseURL: string = 'https://reqres.in/api/';
-  constructor(private http: HttpClient) {}
-  response: any;
+  private readonly baseUrl = 'https://jsonplaceholder.typicode.com/';
 
-  getUsers(page: Number): Observable<User[]> {
+  constructor(private readonly http: HttpClient) {}
+
+  getUsers(page?: number): Observable<User[]> {
+    // Get all users - pagination is handled client-side by MatTableDataSource
+    return this.http.get<User[]>(`${this.baseUrl}users`);
+  }
+
+  getUser(id: number): Observable<{ data: User }> {
     return this.http
-      .get<Data>(`${this.baseURL}users?page=${page}`)
-      .pipe(map((d: Data) => d.data));
+      .get<User>(`${this.baseUrl}users/${id}`)
+      .pipe(map((user) => ({ data: user })));
   }
 
-  getUser(id: Number): Observable<Data> {
-    return this.http.get<Data>(`${this.baseURL}users/${id}`);
-  }
-
-  createUser(data): Observable<CreatedUser> {
-    return this.http.post<CreatedUser>(`${this.baseURL}users`, data);
+  createUser(data: Partial<CreatedUser>): Observable<CreatedUser> {
+    return this.http.post<CreatedUser>(`${this.baseUrl}users`, data);
   }
 }

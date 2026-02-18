@@ -1,32 +1,36 @@
-<div class="example-container">
-    <div class="form-container">
-      <form [formGroup]="createForm" (ngSubmit)="onSubmit(createForm.value)">
-        <mat-form-field class="form-field" appearance="outline">
-          <mat-label> UserId
-          </mat-label>
-          <input matInput formControlName="userId" required>
-          <mat-error *ngIf="createForm.controls.userId.touched && createForm.controls.userId.invalid">
-            <span *ngIf="createForm.controls.userId.errors.required" style="color: #c2185b;">This field is mandatory.</span>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-field" appearance="outline" required>
-          <mat-label> Title
-          </mat-label>
-          <input matInput formControlName="title">
-          <mat-error *ngIf="createForm.controls.title.touched && createForm.controls.title.invalid">
-            <span *ngIf="createForm.controls.title.errors.required" style="color: #c2185b;">This field is mandatory.</span>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="form-field" appearance="outline" required>
-            <mat-label> Body
-            </mat-label>
-            <input matInput formControlName="body">
-            <mat-error *ngIf="createForm.controls.body.touched && createForm.controls.body.invalid">
-              <span *ngIf="createForm.controls.body.errors.required" style="color: #c2185b;">This field is mandatory.</span>
-            </mat-error>
-          </mat-form-field>
-        <button mat-raised-button [disabled]="createForm.invalid" color="primary" type="submit">Create post</button>
-      </form>
-    </div>
-  </div>
-  
+<section class="form-shell">
+  <header>
+    <h1>Create Post</h1>
+    <p>Validate payloads before creating a post against the API.</p>
+  </header>
+
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()" class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>User ID</mat-label>
+      <input matInput type="number" formControlName="userId" />
+      <mat-error *ngIf="createForm.controls['userId'].touched && createForm.controls['userId'].invalid">
+        User ID must be a positive number.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" />
+      <mat-error *ngIf="createForm.controls['title'].touched && createForm.controls['title'].invalid">
+        Title is required (min 5 chars).
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Body</mat-label>
+      <textarea matInput rows="4" formControlName="body"></textarea>
+      <mat-error *ngIf="createForm.controls['body'].touched && createForm.controls['body'].invalid">
+        Body is required (min 10 chars).
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-flat-button color="primary" [disabled]="createForm.invalid || submitting" type="submit">
+      {{ submitting ? 'Creating...' : 'Create post' }}
+    </button>
+  </form>
+</section>

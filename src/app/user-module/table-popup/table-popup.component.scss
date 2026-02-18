@@ -1,26 +1,57 @@
-::ng-deep .mat-dialog-container {
-  border-radius: 11px;
+#modal-content-wrapper {
+  padding: var(--spacing-lg);
+  background: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface);
 }
 
-.userData {
+#modal-header {
+  margin-bottom: var(--spacing-md);
+
+  h3 {
+    margin: 0 0 var(--spacing-xs);
+    font-size: var(--md-sys-typescale-headline-small);
+    font-weight: 600;
+    color: var(--md-sys-color-on-surface);
+  }
+}
+
+.user-username {
+  margin: 0;
+  color: var(--md-sys-color-primary);
+  font-size: var(--md-sys-typescale-body-medium);
+}
+
+.info-grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.info-item {
   display: flex;
-  margin-left: 20px;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  background: var(--md-sys-color-surface-container-high);
+
+  .label {
+    font-size: var(--md-sys-typescale-label-small);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--md-sys-color-on-surface-variant);
+  }
+
+  .value {
+    font-size: var(--md-sys-typescale-body-medium);
+    color: var(--md-sys-color-on-surface);
+    line-height: 1.5;
+  }
 }
 
-#modal-title {
-  margin-top: 5px;
-  margin-left: 20px;
-}
-
-.text {
-  font-size: 15px;
-  line-height: 30px;
-  margin-left: 20px;
-  margin-top: 15px;
-}
-
-#modal-cancel-button {
-  float: right;
-  margin-right: 20px;
-  margin-bottom: 20px;
+#modal-footer {
+  margin-top: var(--spacing-lg);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
 }

@@ -1,36 +1,63 @@
-<mat-toolbar class="mat-elevation-z8">
-    <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
-        <mat-icon *ngIf="!sidenav.opened">
-            menu
-        </mat-icon>
-        <mat-icon *ngIf="sidenav.opened">
-            close
-        </mat-icon>
+<div class="app-shell" (window:resize)="onResize($event)">
+  <mat-toolbar class="topbar">
+    <button
+      type="button"
+      mat-icon-button
+      class="menu-trigger"
+      *ngIf="sidenavMode === 'over'"
+      (click)="sidenavOpen = !sidenavOpen"
+      aria-label="Toggle navigation"
+    >
+      <span class="menu-glyph">{{ sidenavOpen ? "✕" : "☰" }}</span>
     </button>
-    Side navigation
-</mat-toolbar>
-<mat-sidenav-container>
-    <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
-        <button mat-button class="menu-button" on routerLink="/users/table" (click)="sidenav.toggle()">
-            <mat-icon>view_list</mat-icon>
-            <span>Users</span>
-        </button>
-        <button mat-button class="menu-button" on routerLink="/users/form" (click)="sidenav.toggle()">
-            <mat-icon>update</mat-icon>
-            <span>Create User</span>
-        </button>
-        <button mat-button class="menu-button" on routerLink="/posts/posts" (click)="sidenav.toggle()">
-            <mat-icon>description</mat-icon>
-            <span>Posts</span>
-        </button>
-        <button mat-button class="menu-button" on routerLink="/posts/createPost" (click)="sidenav.toggle()">
-            <mat-icon>note_add</mat-icon>
-            <span>Create Post</span>
-        </button>
+
+    <div class="title-block">
+      <span class="title">Dashboard</span>
+      <span class="subtitle"
+        >Modernized UI, typed APIs, reusable module architecture</span
+      >
+    </div>
+
+    <button
+      type="button"
+      mat-icon-button
+      class="theme-toggle"
+      (click)="toggleTheme()"
+      [attr.aria-label]="
+        isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'
+      "
+    >
+      <mat-icon>{{ isDarkMode ? "light_mode" : "dark_mode" }}</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="layout">
+    <mat-sidenav [mode]="sidenavMode" [opened]="sidenavOpen" class="sidebar">
+      <div class="sidebar-header">
+        <h2>Navigation</h2>
+        <p>Portfolio feature map</p>
+      </div>
+
+      <mat-nav-list>
+        <a
+          mat-list-item
+          *ngFor="let item of navItems"
+          [routerLink]="item.route"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+          (click)="sidenavMode === 'over' ? (sidenavOpen = false) : null"
+        >
+          <mat-icon matListItemIcon class="nav-icon">{{ item.icon }}</mat-icon>
+          <span matListItemTitle>{{ item.label }}</span>
+          <span matListItemLine>{{ item.description }}</span>
+        </a>
+      </mat-nav-list>
     </mat-sidenav>
+
     <mat-sidenav-content>
-        <div class="content mat-elevation-z8">
-            <router-outlet></router-outlet>
-        </div>
+      <main class="content">
+        <router-outlet></router-outlet>
+      </main>
     </mat-sidenav-content>
-</mat-sidenav-container>
+  </mat-sidenav-container>
+</div>

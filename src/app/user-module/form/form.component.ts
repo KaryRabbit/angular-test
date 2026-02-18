@@ -1,54 +1,68 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators } from '@angular/forms';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig } from '@angular/material/legacy-dialog';
+import { Component, OnInit, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { CreateUserPopupComponent } from '../create-user-popup/create-user-popup.component';
 import { ReqresApiService } from '../reqres-api.service';
+import { ToastService } from '../../core/services/toast.service';
 
 @Component({
-  selector: 'app-form',
+  selector: 'app-user-form',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDialogModule,
+  ],
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
-  createForm;
-  CreatedData;
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly dialog = inject(MatDialog);
+  private readonly reqresApiService = inject(ReqresApiService);
+  private readonly toast = inject(ToastService);
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-    public matDialog: MatDialog,
-    private reqresApiService: ReqresApiService
-  ) {}
+  createForm!: FormGroup;
+  submitting = false;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.createForm = this.formBuilder.group({
-      name: [null, Validators.required],
-      job: [null, Validators.required],
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      username: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
-  submit() {
-    if (!this.createForm.valid) {
+  onSubmit(): void {
+    if (this.createForm.invalid || this.submitting) {
+      this.createForm.markAllAsTouched();
+      this.toast.warning('Please fill all required fields');
       return;
     }
-  }
 
-  onSubmit(data) {
-    this.openModal(data);
-  }
+    this.submitting = true;
 
-  openModal(data) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = false;
-    dialogConfig.id = 'modal-component';
-    dialogConfig.height = '250px';
-    dialogConfig.width = '420px';
-
-    const userObser = this.reqresApiService.createUser(data);
-    userObser.subscribe((response) => {
-      dialogConfig.data = {
-        user: response,
-      };
-      this.matDialog.open(CreateUserPopupComponent, dialogConfig);
+    this.reqresApiService.createUser(this.createForm.value).subscribe({
+      next: (response) => {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = '420px';
+        dialogConfig.data = { user: response };
+        this.dialog.open(CreateUserPopupComponent, dialogConfig);
+        this.toast.success('User created successfully!');
+        this.createForm.reset();
+        this.submitting = false;
+      },
+      error: () => {
+        this.toast.error('Failed to create user. Please try again.');
+        this.submitting = false;
+      },
     });
   }
 }

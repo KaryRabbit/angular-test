@@ -1,39 +1,72 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let user"> {{user.id}} </td>
-    </ng-container>
+<section class="table-shell">
+  <div class="table-header">
+    <div>
+      <p class="eyebrow">Data Explorer</p>
+      <h1>Users Directory</h1>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Search users</mat-label>
+      <input matInput (input)="applyFilter($any($event.target).value)" />
+    </mat-form-field>
+  </div>
 
-    <ng-container matColumnDef="avatar">
-        <th mat-header-cell *matHeaderCellDef>Avatar </th>
-        <td mat-cell *matCellDef="let user"> <img class="avatar" src={{user.avatar}} /> </td>
-    </ng-container>
+  <div *ngIf="loading" class="state loading-state">
+    <mat-spinner diameter="30"></mat-spinner>
+    <span>Loading users...</span>
+  </div>
 
-    <ng-container matColumnDef="first_name">
-        <th mat-header-cell *matHeaderCellDef>First Name </th>
-        <td mat-cell *matCellDef="let user"> {{user.first_name}} </td>
-    </ng-container>
+  <div *ngIf="error" class="state error-state">
+    <p>{{ error }}</p>
+    <button mat-flat-button color="primary" (click)="retry()">Retry</button>
+  </div>
 
-    <ng-container matColumnDef="last_name">
-        <th mat-header-cell *matHeaderCellDef> Last Name </th>
-        <td mat-cell *matCellDef="let user"> {{user.last_name}} </td>
-    </ng-container>
+  <ng-container *ngIf="!loading && !error">
+    <div class="table-card">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let user">{{ user.id }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let user"> {{user.email}} </td>
-    </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+        </ng-container>
 
-    <ng-container matColumnDef="openInNew">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let user">
-            <mat-icon (click)="openModal(user.id)">open_in_new</mat-icon>
-        </td>
-    </ng-container>
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef>Username</th>
+          <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+        </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+        </ng-container>
 
-</table>
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef>City</th>
+          <td mat-cell *matCellDef="let user">{{ user.address.city }}</td>
+        </ng-container>
 
-<mat-paginator [pageSizeOptions]="pageSizes"></mat-paginator>
+        <ng-container matColumnDef="company">
+          <th mat-header-cell *matHeaderCellDef>Company</th>
+          <td mat-cell *matCellDef="let user">{{ user.company.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="openInNew">
+          <th mat-header-cell *matHeaderCellDef>Details</th>
+          <td mat-cell *matCellDef="let user">
+            <button mat-stroked-button color="primary" (click)="openModal(user.id)">View</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" [attr.colspan]="displayedColumns.length">No users match your search.</td>
+        </tr>
+      </table>
+      <mat-paginator [pageSize]="defaultPageSize" [pageSizeOptions]="pageSizes"></mat-paginator>
+    </div>
+  </ng-container>
+</section>

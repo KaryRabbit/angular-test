@@ -1,16 +1,18 @@
 <div id="modal-content-wrapper">
-    <section id="modal-body">
-        <div class="userData">
-            <div class="text">
-                <div><b>ID: </b>{{data.user.id}}</div>
-                <div><b>Name: </b>{{data.user.name}}</div>
-                <div><b>Job:</b> {{data.user.job}}</div>
-                <div><b>Created at:</b> {{data.user.createdAt}}</div>
-            </div>
-        </div>
+  <header id="modal-header">
+    <h3 id="modal-title">User Created Successfully!</h3>
+  </header>
 
-    </section>
-    <footer id="modal-footer">
-        <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Go back</button>
-    </footer>
+  <section id="modal-body">
+    <div class="text">
+      <div><b>ID:</b> {{ data.user.id }}</div>
+      <div><b>Name:</b> {{ data.user.name }}</div>
+      <div><b>Username:</b> {{ data.user.username }}</div>
+      <div><b>Email:</b> {{ data.user.email }}</div>
+    </div>
+  </section>
+
+  <footer id="modal-footer">
+    <button mat-flat-button color="primary" (click)="closeModal()">Close</button>
+  </footer>
 </div>
