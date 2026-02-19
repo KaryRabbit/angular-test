@@ -77,11 +77,11 @@ export class HomePageComponent implements OnInit {
 
   private loadDashboardStats(): void {
     forkJoin({
-      users: this.userService.getUsers(1),
+      users: this.userService.getUsers(),
       posts: this.postService.getPosts(),
     }).subscribe({
       next: ({ users, posts }) => {
-        const totalUsers = 10; // JSONPlaceholder has 10 users total
+        const totalUsers = users.length;
         const totalPosts = posts.length;
         this.stats.set({
           totalUsers,

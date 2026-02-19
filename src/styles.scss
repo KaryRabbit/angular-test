@@ -50,10 +50,14 @@
   --md-sys-color-surface-container-highest: #e5e5e9;
 
   // Elevation & shadows
-  --md-sys-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
-  --md-sys-elevation-2: 0 2px 4px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.1);
-  --md-sys-elevation-3: 0 4px 8px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.1);
-  --md-sys-elevation-4: 0 8px 16px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.12);
+  --md-sys-elevation-1:
+    0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  --md-sys-elevation-2:
+    0 2px 4px rgba(0, 0, 0, 0.06), 0 4px 6px rgba(0, 0, 0, 0.1);
+  --md-sys-elevation-3:
+    0 4px 8px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.1);
+  --md-sys-elevation-4:
+    0 8px 16px rgba(0, 0, 0, 0.1), 0 12px 24px rgba(0, 0, 0, 0.12);
 
   // Typography
   --md-sys-typescale-display-large: 57px;
@@ -96,7 +100,11 @@
 }
 
 // Dark theme - Professional high-contrast
-[data-theme='dark'] {
+[data-theme="dark"] {
+  --mdc-filled-button-disabled-container-color: #384152;
+  --mdc-filled-button-disabled-label-text-color: #c2cede;
+  --mdc-text-button-disabled-label-text-color: #7f8a9d;
+
   --md-sys-color-primary: #82b1ff;
   --md-sys-color-on-primary: #00202e;
   --md-sys-color-primary-container: #1e88e5;
@@ -137,10 +145,14 @@
   --md-sys-color-surface-container-high: #282828;
   --md-sys-color-surface-container-highest: #323232;
 
-  --md-sys-elevation-1: 0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.6);
-  --md-sys-elevation-2: 0 4px 8px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.6);
-  --md-sys-elevation-3: 0 8px 16px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.6);
-  --md-sys-elevation-4: 0 12px 24px rgba(0, 0, 0, 0.5), 0 6px 12px rgba(0, 0, 0, 0.6);
+  --md-sys-elevation-1:
+    0 2px 4px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.6);
+  --md-sys-elevation-2:
+    0 4px 8px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.6);
+  --md-sys-elevation-3:
+    0 8px 16px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.6);
+  --md-sys-elevation-4:
+    0 12px 24px rgba(0, 0, 0, 0.5), 0 6px 12px rgba(0, 0, 0, 0.6);
 }
 
 // ============================================
@@ -160,53 +172,14 @@ body {
   margin: 0;
   background: var(--md-sys-color-background);
   color: var(--md-sys-color-on-background);
-  font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  font-family: "Roboto", "Helvetica Neue", "Arial", sans-serif;
   font-size: var(--md-sys-typescale-body-medium);
   line-height: 1.6;
-  transition: background-color var(--transition-base), color var(--transition-base);
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-// ============================================
-// UTILITY CLASSES
-// ============================================
-
-.surface-1 {
-  background: var(--md-sys-color-surface-container-low);
-  box-shadow: var(--md-sys-elevation-1);
-}
-
-.surface-2 {
-  background: var(--md-sys-color-surface-container);
-  box-shadow: var(--md-sys-elevation-2);
-}
-
-.surface-3 {
-  background: var(--md-sys-color-surface-container-high);
-  box-shadow: var(--md-sys-elevation-3);
-}
-
-// Skeleton loader animation
-@keyframes skeleton-loading {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--md-sys-color-surface-variant) 0%,
-    var(--md-sys-color-surface-container-high) 50%,
-    var(--md-sys-color-surface-variant) 100%
-  );
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s ease-in-out infinite;
-  border-radius: var(--radius-sm);
 }
 
 // Smooth transitions for theme switching
@@ -242,29 +215,10 @@ body {
       opacity: 1 !important;
     }
   }
-
-  .mdc-notched-outline__leading,
-  .mdc-notched-outline__notch,
-  .mdc-notched-outline__trailing {
-    border-color: #757575 !important;
-  }
-
-  &.mat-focused {
-    .mdc-notched-outline__leading,
-    .mdc-notched-outline__notch,
-    .mdc-notched-outline__trailing {
-      border-color: #0061a4 !important;
-      border-width: 2px !important;
-    }
-
-    .mat-mdc-floating-label {
-      color: #0061a4 !important;
-    }
-  }
 }
 
 // Dark theme overrides
-[data-theme='dark'] {
+[data-theme="dark"] {
   .mat-mdc-form-field {
     .mat-mdc-text-field-wrapper {
       background-color: #2a2a2a !important;
@@ -285,47 +239,6 @@ body {
         color: #b0b0b0 !important;
         opacity: 1 !important;
       }
-
-      &::-webkit-input-placeholder {
-        color: #b0b0b0 !important;
-        opacity: 1 !important;
-      }
-
-      &::-moz-placeholder {
-        color: #b0b0b0 !important;
-        opacity: 1 !important;
-      }
-    }
-
-    .mdc-notched-outline__leading,
-    .mdc-notched-outline__notch,
-    .mdc-notched-outline__trailing {
-      border-color: #757575 !important;
-    }
-
-    &.mat-focused {
-      .mdc-notched-outline__leading,
-      .mdc-notched-outline__notch,
-      .mdc-notched-outline__trailing {
-        border-color: #82b1ff !important;
-        border-width: 2px !important;
-      }
-
-      .mat-mdc-floating-label {
-        color: #82b1ff !important;
-      }
-    }
-
-    &.mat-form-field-invalid {
-      .mdc-notched-outline__leading,
-      .mdc-notched-outline__notch,
-      .mdc-notched-outline__trailing {
-        border-color: #ff5252 !important;
-      }
-
-      .mat-mdc-floating-label {
-        color: #ff5252 !important;
-      }
     }
   }
 
@@ -339,15 +252,21 @@ body {
       color: #ffffff !important;
     }
   }
-}
 
-// Buttons
-.mat-mdc-button,
-.mat-mdc-raised-button,
-.mat-mdc-flat-button,
-.mat-mdc-stroked-button {
-  .mdc-button__label {
-    color: inherit !important;
+  .mat-mdc-raised-button.mat-primary:disabled,
+  .mat-mdc-flat-button.mat-primary:disabled,
+  .mat-mdc-raised-button.mat-primary.mat-mdc-button-disabled,
+  .mat-mdc-flat-button.mat-primary.mat-mdc-button-disabled,
+  .mat-mdc-unelevated-button.mat-primary:disabled,
+  .mat-mdc-unelevated-button.mat-primary.mat-mdc-button-disabled,
+  .mat-mdc-unelevated-button.mat-mdc-button-disabled {
+    --mdc-filled-button-disabled-container-color: #4b566b;
+    --mdc-filled-button-disabled-label-text-color: #dbe5f6;
+
+    .mdc-button__label {
+      color: #dbe5f6 !important;
+      opacity: 1 !important;
+    }
   }
 }
 
@@ -355,10 +274,6 @@ body {
 .mat-mdc-flat-button.mat-primary {
   background-color: var(--md-sys-color-primary) !important;
   color: var(--md-sys-color-on-primary) !important;
-
-  &:disabled {
-    opacity: 0.38;
-  }
 }
 
 // ============================================
@@ -383,7 +298,7 @@ body {
   }
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   .mat-mdc-paginator {
     .mat-mdc-paginator-range-label,
     .mat-mdc-paginator-page-size-label,
@@ -432,9 +347,13 @@ body {
 // ============================================
 
 .mat-mdc-dialog-container {
-  --mdc-dialog-container-color: var(--md-sys-color-surface-container) !important;
+  --mdc-dialog-container-color: var(
+    --md-sys-color-surface-container
+  ) !important;
   --mdc-dialog-subhead-color: var(--md-sys-color-on-surface) !important;
-  --mdc-dialog-supporting-text-color: var(--md-sys-color-on-surface-variant) !important;
+  --mdc-dialog-supporting-text-color: var(
+    --md-sys-color-on-surface-variant
+  ) !important;
 
   .mat-mdc-dialog-surface {
     background-color: var(--md-sys-color-surface-container) !important;
